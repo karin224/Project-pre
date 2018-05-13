@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
 import numpy as np
 import sys,os
@@ -8,10 +10,15 @@ sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/
 from c1_basic_statistic import *
 
 # plotting APLHA with 0.025, 0.05, 0.95,0.975
-def Sample_Variance(filename, ALPHA=0.05):
+def Sample_Variance(filename, calc_file='',ALPHA=0.05):
     # return value : [Lower_chi2 on given ALPHA, Higher_chi2 on given ALPHA, Lower_Sigma2 on given ALPHA, Higher_Sigma2 on given ALPHA, Total_Entry, ALPHA, Mean, Variance]
 
+    if calc_file =='':
+        calc_file = filename
+
     if(filename[0]=="/"):
+        filename = filename
+    elif((filename[0]=="C")&(filename[1]==":")):
         filename = filename
     else:
         filename = os.getcwd() + "/" + filename   # get the path included filename
@@ -23,16 +30,33 @@ def Sample_Variance(filename, ALPHA=0.05):
 
     FILENAME = filename.replace(filename[:-loca],"")   # this is the shorten filename
     filename_No_Txt = FILENAME.replace(".txt","")
+
+    if(calc_file[0]=="/"):
+        calc_file = calc_file
+    elif((calc_file[0]=="C")&(calc_file[1]==":")):
+        calc_file = calc_file
+    else:
+        calc_file = os.getcwd() + "/" + calc_file   # get the path included calc_file
+    loca=len(calc_file)
+    for i in range (1,len(calc_file)+1):       # find the "/" location
+        if(calc_file[-i] == "/"):
+            loca = i-1
+            break
+
+    FILENAME = calc_file.replace(calc_file[:-loca],"")   # this is the shorten calc_file
+    calc_file_No_Txt = FILENAME.replace(".txt","")
+
     infile = filename
+    calc_infile = calc_file
 
     BIN_NUM = bin_num(infile);        #print(BIN_NUM)
     Mode = most_frequent_bin(infile); #print(type(Mode)); print(Mode)
-    Median = c1_median(infile)
-    Range = c1_data_range(infile);    #print(Range)
-    Total_Entry = c1_total_ENTRY(infile); Total_Entry = int(Total_Entry); str_TE = str(Total_Entry)
-    Mean = c1_mean(infile);  str_Mean = "%0.3f"%(Mean); str_Mean = str(str_Mean)
-    Var = c1_variance(infile);
-    Std = c1_standard_deviation(infile); str_Std = "%0.3f"%(Std); str_Std = str(str_Std)
+    Median = c1_median(calc_infile)
+    Range = c1_data_range(calc_infile);    #print(Range)
+    Total_Entry = c1_total_ENTRY(calc_infile); Total_Entry = int(Total_Entry); str_TE = str(Total_Entry)
+    Mean = c1_mean(calc_infile);  str_Mean = "%0.3f"%(Mean); str_Mean = str(str_Mean)
+    Var = c1_variance(calc_infile);
+    Std = c1_standard_deviation(calc_infile); str_Std = "%0.3f"%(Std); str_Std = str(str_Std)
 #    Var = 0.5325
     str_Var = "%0.3f"%(Var) ;str_Var = str(str_Var)
 

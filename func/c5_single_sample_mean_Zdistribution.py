@@ -1,5 +1,7 @@
 #Author : JUNHO LEE
 #According to central limit theorem, even though distribution of population does not belongs to Gaussian, distribution of the sample mean is gaussian, if event number bigger than 30
+import matplotlib
+matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
 import numpy as np
 import sys,os
@@ -9,8 +11,8 @@ from c1_basic_statistic import *
 
 # recommand to use on sample size bigger than 30, i.e. n>=30
 # Make sure the distribution follows gaussian distribution
-def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, norm=0, Show=True, Show_sample=True):
-    # returns [Mean-n*sigma,Mean+n*sigma,Total_Entry,Expected number to reach given sigma confidence interval, SIGMA, MEAN,sample_mean_error(std) ,exp_Mean_error]  (exp_MEAN_error :: [Mean-exp_MEAN_error ,Mean+exp_MEAN_error] within given sigma confidence interval)
+def Fit_Sample_Gaus_histo(filename,calc_file='', Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, norm=0, Show=True, Show_sample=True):
+    # returns [Mean-n*sigma,Mean+n*sigma,Total_Entry,Expected number to reach given sigma confidence interval, SIGMA, MEAN,sample_mean_error(std) ,exp_Mean_error]  (exp_MEAN_error =  length of the half of confidence interval you want)
 
     # Xaxis_Name :: put what you want for Axis name
     # norm :: 0 for normalized histogram showing. (suggest do not change this value)
@@ -19,7 +21,12 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, n
     # Show :: if True, the maximum y value of canvas would be sample_mean_distribution's Maximum value
     # Show_sample :: if True, it will print the sample distribution as well
 
+    if calc_file =='':
+        calc_file = filename
+
     if(filename[0]=="/"):
+        filename = filename
+    elif((filename[0]=="C")&(filename[1]==":")):
         filename = filename
     else:
         filename = os.getcwd() + "/" + filename   # get the path included filename
@@ -32,16 +39,33 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, n
     FILENAME = filename.replace(filename[:-loca],"")   # this is the shorten filename
     filename_No_Txt = FILENAME.replace(".txt","")
 
+    if(calc_file[0]=="/"):
+        calc_file = calc_file
+    elif((calc_file[0]=="C")&(calc_file[1]==":")):
+        calc_file = calc_file
+    else:
+        calc_file = os.getcwd() + "/" + calc_file   # get the path included calc_file
+    loca=len(calc_file)
+    for i in range (1,len(calc_file)+1):       # find the "/" location
+        if(calc_file[-i] == "/"):
+            loca = i-1
+            break
+
+    FILENAME = calc_file.replace(calc_file[:-loca],"")   # this is the shorten calc_file
+    calc_file_No_Txt = FILENAME.replace(".txt","")
+
     infile = filename
+    calc_infile = calc_file
+
     BIN_NUM = bin_num(infile);        #print(BIN_NUM)
     Mode = most_frequent_bin(infile); #print(type(Mode)); print(Mode)
-    Median = c1_median(infile)
-    Range = c1_data_range(infile);    #print(Range)
-    Total_Entry = c1_total_ENTRY(infile); Total_Entry = int(Total_Entry); str_TE = str(Total_Entry)
-    Mean = c1_mean(infile);  str_Mean = str(Mean)
-    Var = c1_variance(infile);
-    Std = c1_standard_deviation(infile); str_Std = str(Std)
-    SSEM = c1_sample_standard_error_of_mean(infile); 
+    Median = c1_median(calc_infile)
+    Range = c1_data_range(calc_infile);    #print(Range)
+    Total_Entry = c1_total_ENTRY(calc_infile); Total_Entry = int(Total_Entry); str_TE = str(Total_Entry)
+    Mean = c1_mean(calc_infile);  str_Mean = str(Mean)
+    Var = c1_variance(calc_infile);
+    Std = c1_standard_deviation(calc_infile); str_Std = str(Std)
+    SSEM = c1_sample_standard_error_of_mean(calc_infile); 
     shorten_SSEM = "%0.4f"%(SSEM)
     str_SSEM = str(shorten_SSEM)
 
@@ -216,7 +240,7 @@ def main():
 #    inputfile = "beer_0319Mon_LA_s_tree_beer_0319Mon_LA_s_V2_hist.txt"
 #    inputfile = "tea_0319Mon_LA_s_tree_tea_0319Mon_LA_s_V2_hist.txt"
 
-    Two_sigma_range = Fit_Sample_Gaus_histo(inputfile, ".X-axis.", SIGMA=2, Show_sample=True, Show = True, exp_Mean_error=5)
+    Two_sigma_range = Fit_Sample_Gaus_histo(inputfile, ".X-axis.", SIGMA=2, Show_sample=True, Show = True, exp_Mean_error=0.1)
 #    Two_sigma_range = Fit_Sample_Gaus_histo(inputfile,SIGMA=1.96, exp_Mean_error=0.05)
     print(Two_sigma_range)
 

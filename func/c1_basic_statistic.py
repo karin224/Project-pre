@@ -135,7 +135,34 @@ def c1_mean(filename):
     infile.close()
     return MEAN
 
-
+def c1_square_sum(filename):
+    import os
+    infile = open(filename,"r")
+    BinN = []
+    LIBin = []
+    LFBin = []
+    LMBin = []     #List of middle Bin
+    LEntry = []
+    Total_Entry = 0
+    for line in infile:
+        binN, xaxis0, xaxis1, entry = line.split()
+        BinN.append(int(binN))
+        LIBin.append(float(xaxis0))
+        LFBin.append(float(xaxis1))
+        LMBin.append(float(xaxis0)+((float(xaxis1) - float(xaxis0)))/2)
+        LEntry.append(float(entry))
+        Total_Entry = Total_Entry + float(entry)
+    Square_Sum = 0
+    for i in range(len(LMBin)):
+        if(LEntry[i] == 0.0):
+            continue
+        else:
+            deno = float(LFBin[i]-LIBin[i])/float(LEntry[i])
+            for j in range((int(LEntry[i]))):
+                deno_m = float(LIBin[i]) + deno*(2*j+1)/2
+                Square_Sum = Square_Sum + deno_m*deno_m
+    infile.close()
+    return Square_Sum
 
 
 def c1_variance(filename):    # actually, this is variance of a sample from population.
@@ -158,9 +185,21 @@ def c1_variance(filename):    # actually, this is variance of a sample from popu
 
     MEAN = c1_mean(filename)
     med_var = 0
+    '''
     for i in range(len(LMBin)):
         for j in range((int(LEntry[i]))):
             med_var = med_var + (LMBin[i] - MEAN)*(LMBin[i] - MEAN)
+    '''
+    for i in range(len(LMBin)):
+        if(LEntry[i] == 0.0):
+            continue
+        else:
+            deno = float(LFBin[i]-LIBin[i])/float(LEntry[i])
+            for j in range((int(LEntry[i]))):
+                deno_m = float(LIBin[i]) + deno*(2*j+1)/2
+                med_var = med_var+(deno_m - MEAN)*(deno_m - MEAN)
+    
+
     VAR = med_var / (Total_Entry-1)
 
 #    print(" Variance Value =",VAR,"!!!!")

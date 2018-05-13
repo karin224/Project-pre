@@ -1,4 +1,6 @@
 #Author : JUNHO LEE
+import matplotlib
+matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
 import numpy as np
 import sys,os
@@ -10,6 +12,8 @@ from c1_basic_statistic import *
 def Fit_Gaus_histo(filename, Xaxis_Name='', norm=0, SIGMA=2):
 
     if(filename[0]=="/"):
+        filename = filename
+    elif((filename[0]=="C")&(filename[1]==":")):
         filename = filename
     else:
         filename = os.getcwd() + "/" + filename   # get the path included filename

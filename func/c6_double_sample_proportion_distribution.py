@@ -1,5 +1,7 @@
 #Author : JUNHO LEE
 #Required : n1p1>=5, n2p2>=5 and also, n1(1-p1)>=5, n2(1-p2)>=5
+import matplotlib
+matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
 import numpy as np
 import math
