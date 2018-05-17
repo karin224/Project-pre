@@ -5,10 +5,10 @@ from w0_WEIBO_py2 import WEIBO
 
 ID_junho = ""
 PASSWD_junho = ""
-infilename = "PM_20180401_test.txt"
-day = 31
-month = 3
-year = 2018
+infilename = "PM_20140101_test.txt"
+day = 30
+month = 1
+year = 2014
 
 weibo = WEIBO()
 weibo.AWAKE_BROWSER(filename = infilename)

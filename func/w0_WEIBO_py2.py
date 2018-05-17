@@ -56,6 +56,7 @@ class WEIBO:
 
             if(finished == 1):
                 WRITE_NAME = 0
+                EJ_WAIT = 0
                 while WRITE_NAME == 0:
                     try:
                         self.driver1.find_element_by_id("loginname").clear()
@@ -70,7 +71,8 @@ class WEIBO:
                         print("    Something went wrong.. I will retry..")
                         try:
                             self.driver1.refresh()
-                            time.sleep(2)
+                            time.sleep(2 + EJ_WAIT*5)
+                            EJ_WAIT = EJ_WAIT + 1
                         except:
                             pass
 
@@ -163,8 +165,8 @@ class WEIBO:
             str_e_day = str(DATE_LIST[5])
         startDATE = str_s_year + "-" + str_s_month + "-" + str_s_day
         endDATE   = str_e_year + "-" + str_e_month + "-" + str_e_day
-        RE_DATE = startDATE + ":" + endDATE
-        END_DATE_FOR_TXT = str_e_year + str_e_month + str_e_day
+        RE_DATE = startDATE + ":" + startDATE
+        END_DATE_FOR_TXT = str_s_year + str_s_month + str_s_day
         return [startDATE,endDATE,RE_DATE,END_DATE_FOR_TXT] 
 
 
