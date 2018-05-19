@@ -88,8 +88,13 @@ class WEIBO:
                     self.driver1.quit()
                     break
                 if(login_flag>2):
-                    ID = input("PLEASE, input ID : \n")
-                    PASSWD = input("PLEASE, input Password : \n")
+#                    ID = input("PLEASE, input ID : \n")
+#                    PASSWD = input("PLEASE, input Password : \n")
+                    for sounds in range(7):
+                        sys.stdout.write('\a')
+                        sys.stdout.flush()
+                    QWER = input("Login problem... Please login on webpage by yourself! (press anykey to be continue!) \n")
+                    return
                 login_flag = login_flag + 1 
                 finished = 0
         print("    ======================================================================")
@@ -251,8 +256,21 @@ class WEIBO:
                     timeoutwait = 1
             except TimeoutException:
                 print("        TimeOut Exception... let's do it again... (Check internet connection/status)")
-                if(TT >5):
+                if(TT >6):
                     print(" Breaking out this Webpage Due to webpage is not responding... (MAYBE loss of Internet Connection) ")
+                    print(" [NEED YOUR HELP] - Input the WEIBO message number by yourself! (It is taking too long to be loaded..) *****")
+                    CONTINUE = 'test'
+                    while ((CONTINUE != "c") & (CONTINUE != "C")):
+                        for sounds in range(7):
+                            sys.stdout.write('\a')
+                            sys.stdout.flush()
+#                            print('\a')
+                        time.sleep(0.5)
+                        count_yourself = input("input WEIBO message number : \n")
+                        print(count_yourself, "input as WEIBO message number of this page! \n")
+                        CONTINUE = input("input 'C' if right, press any other key to be re-input : \n")
+                    self.COUNT = self.COUNT + int(count_yourself)
+                    TEMP2 = 1
                     break;
                 try:
                     if WebDriverWait(self.driver1, 2+TT*1).until(EC.presence_of_element_located((By.CSS_SELECTOR,".noresult_tit"))):
@@ -380,7 +398,7 @@ class WEIBO:
             CONTINUE = 'test'
             while ((CONTINUE != "c") & (CONTINUE != "C")):
                 for sounds in range(7):
-                    sounds = sounds + 1
+#                    sounds = sounds + 1
                     sys.stdout.write('\a')
                     sys.stdout.flush()
 #                    print('\a')

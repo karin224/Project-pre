@@ -1,7 +1,7 @@
 import sys 
 import time
 #sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func")
-from w0_WEIBO_py3 import WEIBO
+from w0_WEIBO_py3_Firefox import WEIBO
 
 ID_junho = ""
 PASSWD_junho = ""

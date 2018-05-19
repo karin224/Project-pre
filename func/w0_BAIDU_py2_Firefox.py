@@ -7,7 +7,10 @@ from selenium.webdriver.support.ui import WebDriverWait # available since 2.4.0
 from selenium.webdriver.support import expected_conditions as EC # available since 2.26.0
 from urllib2 import Request, urlopen, URLError,HTTPError
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver import ActionChains
 import re
+#import Image, pytesseract
+
 
 class BAIDU_INDEX:
 
@@ -37,7 +40,7 @@ class BAIDU_INDEX:
             try:
                 self.driver1.get("http://index.baidu.com/?from=pinzhuan#/")
 #                WebDriverWait(self.driver1, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR,".loginname")))
-                time.sleep(2.5)
+                time.sleep(3.5)
                 finished = 1
                 pass
             except HTTPError:
@@ -110,6 +113,7 @@ class BAIDU_INDEX:
                 self.driver1.find_element_by_id("TANGRAM__PSP_4__password").clear()
                 time.sleep(3)
         print("        Log in Successful!")
+        time.sleep(3)
 
 
     def ACCESS_URL(self, URL="http://index.baidu.com/?tpl=trend&word=%CE%ED%F6%B2"):
@@ -140,7 +144,7 @@ class BAIDU_INDEX:
         time.sleep(1.5)
         self.Click_for_Month()
         time.sleep(1.5)
-#        self.VIEW_BOX()
+        self.VIEW_BOX()
 
 
     def Click_for_Month(self, START_YEAR="2014",START_MONTH="01", END_MONTH="04"):
@@ -175,11 +179,50 @@ class BAIDU_INDEX:
         self.driver1.find_element_by_class_name("button.ml20").click()
 
 
-    def VIEW_BOX(self):
-        VBOX = self.driver1.find_element_by_class_name("viewbox")
-        for i in VBOX:
-            print(i.text)
 
+
+
+    def VIEW_BOX(self):
+        el = self.driver1.find_element_by_tag_name("path")
+        location = el.location; print(location)
+        action = ActionChains(self.driver1)
+        action.move_to_element_with_offset(el, 5, 5)
+        action.click()
+        action.perform()
+        time.sleep(0.5)
+        action.click();
+        action.perform();
+        time.sleep(0.5)
+#        self.driver1.execute_script("window.scrollTo(0, document.body.scrollHeight);") 
+#        Position = "window.scrollTo(" + str(location['x']) + "," + str(location['y']) + ")";
+#        print(Position)
+#        self.driver1.execute_script(Position)
+      
+        time.sleep(3) 
+        VBOX = self.driver1.find_element_by_id("viewbox") 
+        View_label = VBOX.find_element_by_class_name("view-label")
+        location = View_label.location; print(location)
+        Position = "window.scrollTo(" + str(location['x']) + "," + str(location['y']) + ")";
+        print(Position)
+        self.driver1.execute_script(Position)
+
+        FOR_DATE = VBOX.find_element_by_class_name("view-table-wrap")
+        print(FOR_DATE.text)        
+        FOR_VALUE = VBOX.get_attribute('value')
+        print(VBOX.text)
+
+        locations = VBOX.location
+        rangle = (int(int(locations['x'])), int(int(locations['y'])),
+              int(int(locations['x'])+100) ,
+              int(int(locations['y'])) + 80)
+        print(rangle)
+        self.driver1.save_screenshot(str("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func/BAIDU1.png"))
+
+#        vIMG = VBOX.find_element_by_class_name("imgval")
+#        vIMG.save_screenshot(str("BAIDU2.png"))
+
+#        img = Image.open(str("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func/BAIDU1.png"))
+#        jpg = img.crop(rangle)
 
 
     def QUIT(self):

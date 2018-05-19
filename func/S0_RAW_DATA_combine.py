@@ -1,3 +1,4 @@
+import os
 import sys
 sys.path.append("/home/soomin/Desktop/group_study/Project-pre/func")
 
@@ -76,8 +77,8 @@ def ROW_COL(filename1, filename2):
 def main():
 #    INFILE1 = "test1.txt"
 #    INFILE2 = "test2.txt"
-    INFILE1 = "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/ALL_DATA/OLD_180420_Aqi_Beijing_Weather.txt"
-    INFILE2 = "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/ALL_DATA/FORMAT/WIND.txt"
+    INFILE1 = "C:/Users/soomin/Desktop/group_study/project-pre/data_txt/ALL_DATA/Aqi_Beijing_monthly.txt"
+    INFILE2 = "C:/Users/soomin/Desktop/group_study/project-pre/data_txt/ALL_DATA/AirPollutionProtect_Beijing.txt"
     output = ROW_COL(INFILE1, INFILE2)
     print(output)
 
