@@ -320,7 +320,8 @@ class WEIBO:
             #self.ROBOT()
             try:
                 time.sleep(5)
-                tt1 = self.driver1.find_elements_by_css_selector('.red')
+#                tt1 = self.driver1.find_elements_by_css_selector('.red')
+                tt1 = self.driver1.find_elements_by_css_selector('.face')
 #                self.ROBOT()
                 print("            Successful!")
                 time.sleep(3)
