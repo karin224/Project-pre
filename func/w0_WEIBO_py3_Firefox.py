@@ -200,8 +200,8 @@ class WEIBO:
         while finished == 0:
             self.ROBOT()
             TT = TT + 1
-            self.driver1.set_page_load_timeout(5+TT*10)
-            self.driver1.implicitly_wait(5+TT*10)
+            self.driver1.set_page_load_timeout(45+TT*10)
+            self.driver1.implicitly_wait(45+TT*10)
             try:
 #                time.sleep(3)
                 if(TT<=1):
@@ -212,13 +212,13 @@ class WEIBO:
                 else:
                     self.driver1.refresh()
 #                    element = WebDriverWait(self.driver1, 20+TT*30).until(EC.presence_of_element_located((By.CSS_SELECTOR,".red")))
-                    element = WebDriverWait(self.driver1, 20+TT*30).until(EC.presence_of_element_located((By.CSS_SELECTOR,".face")))
+                    element = WebDriverWait(self.driver1, 45+TT*10).until(EC.presence_of_element_located((By.CSS_SELECTOR,".face")))
 #                else:
 #                    print(" [Take a look] WEIBO without keyword mentioned...")
 #                    TEMP2 = 1
 #                    break
 #                element = WebDriverWait(self.driver1, 20+TT*10).until(EC.presence_of_element_located((By.CSS_SELECTOR,".red")))   #|(By.CSS_SELECTOR,".W_btn_a.btn_32px"))) 
-                element = WebDriverWait(self.driver1, 20+TT*30).until(EC.presence_of_element_located((By.CSS_SELECTOR,".face")))
+                element = WebDriverWait(self.driver1, 45+TT*10).until(EC.presence_of_element_located((By.CSS_SELECTOR,".face")))
 #                time.sleep(1)
                 WebWait=0
                 while WebWait==0:
@@ -245,7 +245,7 @@ class WEIBO:
             except ZeroDivisionError:
                 print("        If there is no WEIBO message, I will skip this page...")
                 try:
-                    if WebDriverWait(self.driver1, 5+TT*10).until(EC.presence_of_element_located((By.CSS_SELECTOR,".noresult_tit"))):
+                    if WebDriverWait(self.driver1, 45+TT*10).until(EC.presence_of_element_located((By.CSS_SELECTOR,".noresult_tit"))):
                         print("        There is no such website... Moving to another district");
                         TEMP2 = 1
                         break
@@ -256,7 +256,7 @@ class WEIBO:
                     timeoutwait = 1
             except TimeoutException:
                 print("        TimeOut Exception... let's do it again... (Check internet connection/status)")
-                if(TT >6):
+                if(TT >2):
                     print(" Breaking out this Webpage Due to webpage is not responding... (MAYBE loss of Internet Connection) ")
                     print(" [NEED YOUR HELP] - Input the WEIBO message number by yourself! (It is taking too long to be loaded..) *****")
                     CONTINUE = 'test'
