@@ -1,8 +1,8 @@
 # -*- coding: UTF-8 -*-
-from w0_BAIDU_py2_Firefox import BAIDU_INDEX
+from w0_BAIDU_py3_Firefox import BAIDU_INDEX
 
-ID = "skyblue1294@126.com"
-PW = "sky456"
+ID = "skyblue12"
+PW = ""
 KEYWORD = "%CE%ED%F6%B2"
 
 baidu = BAIDU_INDEX()
