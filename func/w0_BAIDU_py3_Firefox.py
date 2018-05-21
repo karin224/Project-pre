@@ -11,6 +11,8 @@ from selenium.webdriver import ActionChains
 import re
 from PIL import Image
 from io import BytesIO
+from pynput.mouse import Button, Controller
+
 #import Image, pytesseract
 
 
@@ -118,7 +120,7 @@ class BAIDU_INDEX:
         time.sleep(3)
 
 
-    def ACCESS_URL(self, URL="http://index.baidu.com/?tpl=trend&type=0&area=514&time=13&word=%CE%ED%F6%B2", ITER=5):
+    def ACCESS_URL(self, URL="http://index.baidu.com/?tpl=trend&type=0&area=514&time=13&word=%CE%ED%F6%B2", start_year="2014", start_month="01", end_month="04" ):
         url_finish=0
         TT = -1
         while url_finish==0:
@@ -144,12 +146,12 @@ class BAIDU_INDEX:
                 print("            Accessing URL failed.. Let's try again!")
         print("        Successfully accessed to given URL, Lets make DATA into given shape!")
         time.sleep(1.5)
-        self.Click_for_Month()
+        self.Click_for_Month(START_YEAR=start_year, START_MONTH=start_month, END_MONTH=end_month)
         time.sleep(1.5)
-        self.VIEW_BOX(ITERATION = ITER)
+        self.VIEW_BOX()
 
 
-    def Click_for_Month(self, START_YEAR="2014",START_MONTH="01", END_MONTH="02"):
+    def Click_for_Month(self, START_YEAR="2014",START_MONTH="01", END_MONTH="04"):
         self.driver1.find_element_by_class_name("chartselectdiy").click()
 
         SY_R = self.driver1.find_element_by_class_name("selectA.yearA")
@@ -181,10 +183,17 @@ class BAIDU_INDEX:
         self.driver1.find_element_by_class_name("button.ml20").click()
 
 
+    def Init_mouse(self,locx=48 ,locy=370):
+        self.mouse = Controller()
+        self.mouse.position = (locx,locy)
 
+    def move_mouse(self, INTERVAL=5):
+        self.mouse.move(INTERVAL, 0)
 
+    def xlocation_mouse(self):
+        return self.mouse.position[0]
 
-    def VIEW_BOX(self, ITERATION):
+    def VIEW_BOX(self):
         el = self.driver1.find_element_by_id("auto_gsid_15")
         location = el.location; 
 #        action = ActionChains(self.driver1)
@@ -202,11 +211,16 @@ class BAIDU_INDEX:
         print("frame location : ", location_frame)
  
         data_list = []
-        for i in range(ITERATION):
+#        for i in range(ITERATION):
+        self.Init_mouse()
+        FIRST_IN = 0
+        while True:
             SAVE_IMAGE = 0
+            NO_IMAGE = 0
             while SAVE_IMAGE==0:
-                print("Start of getting DATA!"); print("The process begins in 3 second!")
-                print("3"); time.sleep(1); print("2"); time.sleep(1); print("1"); time.sleep(1); print("begin!"); time.sleep(1);
+                time.sleep(2)
+#                print("Start of getting DATA!"); print("The process begins in 3 second!")
+#                print("3"); time.sleep(1); print("2"); time.sleep(1); print("1"); time.sleep(1); print("begin!"); time.sleep(1);
                 VBOX = self.driver1.find_element_by_id("viewbox") 
                 View_label = VBOX.find_element_by_class_name("view-label")
                 View_value = VBOX.find_element_by_class_name("view-value")
@@ -214,6 +228,17 @@ class BAIDU_INDEX:
                 DATE_INFO = DATE_info.text; #print(DATE_INFO)
                 DATE_INFO = DATE_INFO[0:10]; #print(DATE_INFO)
                 DATE_INFO = DATE_INFO.replace("-",""); #print(DATE_INFO)
+                if(FIRST_IN != 0):
+#                    print(data_list[-1][0])
+                    if(data_list[-1][0] == DATE_INFO):
+                        print("Skip due to Same date!")
+                        self.move_mouse()
+                        if((self.xlocation_mouse())>1220):
+                            break
+                        continue
+                else:
+                    FIRST_IN = 1
+                    pass
                 location_view_label = View_label.location 
                 location_view_value = View_value.location
                 view_value_size = View_value.size
@@ -227,7 +252,7 @@ class BAIDU_INDEX:
                 top = 2*(location_view_value['y'] - location_frame['y'])
                 right = left + 2*view_value_size['width']
                 bottom = top + 2*view_value_size['height']
-                print("Location reading!"); print("Stay for a second!")
+#                print("Location reading!"); print("Stay for a second!")
 
                 time.sleep(2)
                 png = self.driver1.get_screenshot_as_png()
@@ -237,7 +262,15 @@ class BAIDU_INDEX:
                     im.save(str("AA.png"))
                     SAVE_IMAGE = 1
                 except:
-                    print("Image is not saving, retry in 3 second!")
+                    print("Image is not saving, retry!!")
+                    self.mouse.move(0, 5)
+                    if(NO_IMAGE>=3):
+                        print("There is no View BOX!! Please control your mouse to show the box!")
+                        print("Saved until *", data_list[-1][0], "* ...")
+                        sys.stdout.write('\a');sys.stdout.write('\a');sys.stdout.write('\a');sys.stdout.write('\a');sys.stdout.write('\a');
+                        TTT = input(" [Need your help] press 'Enter' to continue!!  ")
+                        time.sleep(5)
+                    NO_IMAGE = NO_IMAGE + 1
                     #print("3"); time.sleep(1); print("2"); time.sleep(1);print("1"); time.sleep(1); print("0!");
                          
             sys.stdout.write('\a')
@@ -246,26 +279,57 @@ class BAIDU_INDEX:
             time.sleep(1)
             infile = open("AA_out.txt","r")
             for line in infile:
-                DATA = line.replace("\n","")
-                DATA = DATA.replace(". ","")
+                DATA = line.replace("\n",""); DATA = DATA.replace("o","0"); DATA = DATA.replace("O","0");
+                DATA = DATA.replace(". ",""); DATA = DATA.replace("'",""); DATA = DATA.replace("B","8");
                 DATA = DATA.replace(".","")
                 DATA = DATA.replace("\n","")
                 DATA = DATA.replace(" ","")
                 DATA = DATA.replace("S","5"); 
                 break
-            print(DATE_INFO)
+#            print(DATE_INFO)
             try:
-                print(DATA)
+                print(DATE_INFO, DATA)
             except:
-                print("Invalid DATA...")
-                sys.stdout.write('\a');sys.stdout.write('\a');sys.stdout.write('\a');sys.stdout.write('\a');sys.stdout.write('\a');
+#                print("Invalid DATA...")
+#                sys.stdout.write('\a');sys.stdout.write('\a');sys.stdout.write('\a');sys.stdout.write('\a');sys.stdout.write('\a');
                 continue
             time.sleep(1)
             temp_list = []; temp_list.append(DATE_INFO); temp_list.append(DATA); data_list.append(temp_list)
+            self.CREATE_n_WRITE_INTO_TXT(temp_list)
             print("Ready for next iteration!")
-            print("Move your mouse, now!")
+            self.move_mouse()
+            time.sleep(1)
+            if((self.xlocation_mouse())>1220):
+                break
+#            print("Move your mouse, now!")
         print(data_list)
         return data_list
+
+
+    def CREATE_n_WRITE_INTO_TXT(self, Write_LIST):
+        filename = self.FILENAME
+        if(filename[0]=="/"):
+            filename = filename
+        elif((filename[0]=="C")&(filename[1]==":")):
+            filename = filename
+        else:
+            filename = os.getcwd() + "/" + filename   # get the path included filename
+        loca=len(filename)
+        for i in range (1,len(filename)+1):       # find the "/" location
+            if(filename[-i] == "/"):
+                loca = i-1
+                break
+        FILENAME = filename.replace(filename[:-loca],"")   # this is the shorten filename
+        filename_No_Txt = FILENAME.replace(".txt","")
+        infile = filename
+        OF = open(infile,"a+")
+        for i in range(len(Write_LIST)):
+            OF.write("%s" %Write_LIST[i])
+            if(i != len(Write_LIST)-1):
+                OF.write(" ")
+            if(i == len(Write_LIST)-1):
+                OF.write("\n")
+        OF.close()
 
 
     def QUIT(self):

@@ -71,7 +71,10 @@ class WEIBO:
                 except:
                     print("    Something went wrong.. I will retry..")
                     try:
-                        self.driver1.refresh()
+                        if(EJ_WAIT<3):
+                            self.driver1.refresh()
+                        else:
+                            self.driver1.get("https://www.weibo.com/login.php")
                         time.sleep(2 + EJ_WAIT*5)
                         EJ_WAIT = EJ_WAIT + 1
                     except:
