@@ -92,3 +92,7 @@ for i in range(duration_day):
 
     print("    End of ",INFO_STR[0],"of",keyword,"...."); print("    Totally Counted Tweets Number :", TOT_TWEET, "!!")
     print("    ======================================================================"); print("")
+
+
+
+twitter.QUIT()
