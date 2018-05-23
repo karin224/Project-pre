@@ -183,15 +183,35 @@ class BAIDU_INDEX:
         self.driver1.find_element_by_class_name("button.ml20").click()
 
 
-    def Init_mouse(self,locx=48 ,locy=370):
+    def Init_mouse(self,locx=45 ,locy=302):
         self.mouse = Controller()
         self.mouse.position = (locx,locy)
+        time.sleep(1)
+    
+    def loc_0(self,locx=408 ,locy=400):
+        self.mouse.position = (locx,locy)
+        time.sleep(1)
+
+    def loc_1(self,locx=48 ,locy=370):
+        self.mouse.position = (locx,locy)
+        time.sleep(1)
+
+    def loc_2(self,locx=70 ,locy=770):
+        self.mouse.position = (locx,locy)
+        time.sleep(1)
+
+    def loc_3(self,locx=1000 ,locy=70):
+        self.mouse.position = (locx,locy)
+        time.sleep(1)
 
     def move_mouse(self, INTERVAL=5):
         self.mouse.move(INTERVAL, 0)
 
     def xlocation_mouse(self):
         return self.mouse.position[0]
+
+    def ylocation_mouse(self):
+        return self.mouse.position[1]
 
     def VIEW_BOX(self):
         el = self.driver1.find_element_by_id("auto_gsid_15")
@@ -211,8 +231,10 @@ class BAIDU_INDEX:
         print("frame location : ", location_frame)
  
         data_list = []
+        date_list = []
 #        for i in range(ITERATION):
-        self.Init_mouse()
+        self.Init_mouse();
+        self.mouse.move(-1, 5)
         FIRST_IN = 0
         while True:
             SAVE_IMAGE = 0
@@ -228,10 +250,12 @@ class BAIDU_INDEX:
                 DATE_INFO = DATE_info.text; #print(DATE_INFO)
                 DATE_INFO = DATE_INFO[0:10]; #print(DATE_INFO)
                 DATE_INFO = DATE_INFO.replace("-",""); #print(DATE_INFO)
-                if(FIRST_IN != 0):
+                if((FIRST_IN != 0) & (len(data_list)!=0) ):
 #                    print(data_list[-1][0])
-                    if(data_list[-1][0] == DATE_INFO):
-                        print("Skip due to Same date!")
+                    if DATE_INFO in date_list:
+#                    if((data_list[-1][0] == DATE_INFO)):
+                        print("Skip due to Included date!")
+                        NO_IMAGE = 0
                         self.move_mouse()
                         if((self.xlocation_mouse())>1220):
                             break
@@ -262,9 +286,27 @@ class BAIDU_INDEX:
                     im.save(str("AA.png"))
                     SAVE_IMAGE = 1
                 except:
+                    XLOC = self.xlocation_mouse()
+                    YLOC = self.ylocation_mouse()
                     print("Image is not saving, retry!!")
-                    self.mouse.move(0, 5)
-                    if(NO_IMAGE>=3):
+                    if(NO_IMAGE==0):
+                        self.loc_0()
+                    elif(NO_IMAGE==1):
+                        self.loc_1()
+                    elif(NO_IMAGE==2):
+                        self.loc_2()
+                    else:
+                        self.loc_3()
+                    self.loc_0(locx=XLOC ,locy=YLOC)
+                    if(NO_IMAGE==0):
+                        self.mouse.move(-2, 10); time.sleep(0.5)
+                    elif(NO_IMAGE==1):
+                        self.mouse.move(-2, -9); time.sleep(0.5)
+                    elif(NO_IMAGE==2):
+                        self.mouse.move(-2, 10); time.sleep(0.5)
+                    else:
+                        self.mouse.move(-2, -4); time.sleep(0.5)
+                    if(NO_IMAGE>3):
                         print("There is no View BOX!! Please control your mouse to show the box!")
                         print("Saved until *", data_list[-1][0], "* ...")
                         sys.stdout.write('\a');sys.stdout.write('\a');sys.stdout.write('\a');sys.stdout.write('\a');sys.stdout.write('\a');
@@ -281,7 +323,7 @@ class BAIDU_INDEX:
             for line in infile:
                 DATA = line.replace("\n",""); DATA = DATA.replace("o","0"); DATA = DATA.replace("O","0");
                 DATA = DATA.replace(". ",""); DATA = DATA.replace("'",""); DATA = DATA.replace("B","8");
-                DATA = DATA.replace(".","")
+                DATA = DATA.replace(".","");  DATA = DATA.replace("‘",""); DATA = DATA.replace("?","7");
                 DATA = DATA.replace("\n","")
                 DATA = DATA.replace(" ","")
                 DATA = DATA.replace("S","5"); 
@@ -294,7 +336,7 @@ class BAIDU_INDEX:
 #                sys.stdout.write('\a');sys.stdout.write('\a');sys.stdout.write('\a');sys.stdout.write('\a');sys.stdout.write('\a');
                 continue
             time.sleep(1)
-            temp_list = []; temp_list.append(DATE_INFO); temp_list.append(DATA); data_list.append(temp_list)
+            temp_list = []; temp_list.append(DATE_INFO); temp_list.append(DATA); data_list.append(temp_list); date_list.append(DATE_INFO)
             self.CREATE_n_WRITE_INTO_TXT(temp_list)
             print("Ready for next iteration!")
             self.move_mouse()
