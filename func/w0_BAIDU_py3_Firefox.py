@@ -213,7 +213,7 @@ class BAIDU_INDEX:
     def ylocation_mouse(self):
         return self.mouse.position[1]
 
-    def VIEW_BOX(self):
+    def VIEW_BOX(self, init_mouseX=45,init_mouseY=302, mouse_endX=1230):
         el = self.driver1.find_element_by_id("auto_gsid_15")
         location = el.location; 
 #        action = ActionChains(self.driver1)
@@ -233,7 +233,7 @@ class BAIDU_INDEX:
         data_list = []
         date_list = []
 #        for i in range(ITERATION):
-        self.Init_mouse();
+        self.Init_mouse(locx=init_mouseX,locy=init_mouseY);
         self.mouse.move(-1, 5)
         FIRST_IN = 0
         while True:
@@ -257,7 +257,7 @@ class BAIDU_INDEX:
                         print("Skip due to Included date!")
                         NO_IMAGE = 0
                         self.move_mouse()
-                        if((self.xlocation_mouse())>1220):
+                        if((self.xlocation_mouse())>mouse_endX):
                             break
                         continue
                 else:
