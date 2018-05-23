@@ -120,7 +120,7 @@ class BAIDU_INDEX:
         time.sleep(3)
 
 
-    def ACCESS_URL(self, URL="http://index.baidu.com/?tpl=trend&type=0&area=514&time=13&word=%CE%ED%F6%B2", start_year="2014", start_month="01", end_month="04" ):
+    def ACCESS_URL(self, URL="http://index.baidu.com/?tpl=trend&type=0&area=514&time=13&word=%CE%ED%F6%B2", start_year="2014", start_month="01", end_month="04" ,xposition=45 yposition=302, endx=1230):
         url_finish=0
         TT = -1
         while url_finish==0:
@@ -148,7 +148,7 @@ class BAIDU_INDEX:
         time.sleep(1.5)
         self.Click_for_Month(START_YEAR=start_year, START_MONTH=start_month, END_MONTH=end_month)
         time.sleep(1.5)
-        self.VIEW_BOX()
+        self.VIEW_BOX(init_mouseX=xposition,init_mouseY=yposition, mouse_endX=endx)
 
 
     def Click_for_Month(self, START_YEAR="2014",START_MONTH="01", END_MONTH="04"):
