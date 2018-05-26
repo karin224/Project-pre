@@ -120,9 +120,10 @@ def formation(filename1,filename2): # it's the function which make file2 same fo
                     j = 1
                     break
                 elif form_date[i] == data_date[j]:
-                    ch_amount.append(list_amount[j])
-                    ch_volume.append(list_volume[j])
-
+                    a = list_amount[j].replace(',','')
+                    b = list_volume[j].replace(',','')
+                    ch_amount.append(a)
+                    ch_volume.append(b)
                     break
                 else:
                     j += 1
@@ -159,10 +160,11 @@ def missing_value(filename1):
             if arr_row[i][j] == 'None':
                # print(1)
                 arr_row=np.delete(arr_row,j,axis=1)
-            j += 1
+            else:
+                j += 1
         i += 1
         j = 0
-    NEWNAME = infile1.replace(filename1_No_Txt, "missing_deleted_" + filename1_No_Txt)
+    NEWNAME = infile1.replace(filename1_No_Txt+".txt", "missing_deleted_" + filename1_No_Txt)
     FN = NEWNAME + ".txt"
     Of = open(FN, "w+")
     for j in range(len(arr_row[0])):
