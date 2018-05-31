@@ -125,7 +125,7 @@ class WEIBO:
             if(s_month > 12):
                 s_month = s_month - 12
                 s_year = s_year + 1
-        elif( (s_day >29) & ((START_MONTH ==2) & START_YEAR==2016)   ):
+        elif( (s_day >29) & ((START_MONTH ==2) & (START_YEAR%4 == 0))   ):
             s_day = s_day-29
             s_month = s_month + 1
         elif((s_day >28) & (START_MONTH ==2) ):    
@@ -174,7 +174,7 @@ class WEIBO:
             str_e_day = str(DATE_LIST[5])
         startDATE = str_s_year + "-" + str_s_month + "-" + str_s_day
         endDATE   = str_e_year + "-" + str_e_month + "-" + str_e_day
-        RE_DATE = startDATE + ":" + startDATE
+        RE_DATE = startDATE + ":" + startDATE  # Since in WEIBO, 2016-01-03:2016-01-03 means whole day of 2016-01-03
         END_DATE_FOR_TXT = str_s_year + str_s_month + str_s_day
         return [startDATE,endDATE,RE_DATE,END_DATE_FOR_TXT] 
 
