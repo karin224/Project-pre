@@ -123,10 +123,10 @@ class WEIBO:
             if(s_month > 12):
                 s_month = s_month - 12
                 s_year = s_year + 1
-        elif( (s_day >29) & ((START_MONTH ==2) & START_YEAR==2016)   ):
+        elif( (s_day >29) & ((START_MONTH ==2) & (START_YEAR%4==0))   ):
             s_day = s_day-29
             s_month = s_month + 1
-        elif((s_day >28) & (START_MONTH ==2) ):    
+        elif((s_day >28) & (START_MONTH ==2) & (START_YEAR%4!=0) ):    
             s_day = s_day-28
             s_month = s_month + 1
         else:
@@ -140,10 +140,10 @@ class WEIBO:
         elif((e_day >30 ) & ((START_MONTH ==4)|(START_MONTH ==6)|(START_MONTH ==9)|(START_MONTH ==11))):
             e_day = e_day -30
             e_month = e_month + 1
-        elif((e_day >29 ) & ((START_MONTH ==2) & START_YEAR==2016)   ):
+        elif((e_day >29 ) & ((START_MONTH ==2) & (START_YEAR%4==0))   ):
             e_day = e_day -29
             e_month = e_month + 1
-        elif((e_day >28) & (START_MONTH ==2) ):
+        elif((e_day >28) & (START_MONTH ==2)&(START_YEAR%4!=0) ):
             e_day = e_day -28
             e_month = e_month + 1
         else:
