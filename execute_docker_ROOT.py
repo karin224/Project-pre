@@ -13,8 +13,8 @@ os.system("rm -rf ROOT_python_plots")
 os.system("rm -rf ROOT_python_hist_texts")
 
 INfile = "/home/Project-pre/data_txt/BEIJING_Aqi/Aqi_Beijing.txt"
-BIN_Num_2D = 5    # X bin number of 2D
-YBIN_Num_2D = 1000   # Y bin number of 2D
+BIN_Num_2D = 100    # X bin number of 2D
+YBIN_Num_2D = 100   # Y bin number of 2D
 oneD_NBins = 100
 
 #### option to draw ###
@@ -102,57 +102,15 @@ if PYTHON_HIST != 1:
 #    os.system("rm -rf ROOT_files")
     os.system("mkdir ROOT_files")
     os.system("mv *.root ROOT_files")
+    os.system("mkdir ROOT_2D_default")
+    os.system("mv *_defalut_2D.pdf ROOT_2D_default")
     gBenchmark.Show("All in One")
 
-elif (PYTHON_HIST==1) & (TH1D_transfer==1):
-    sys.path.append("/home/fruit_team/ROOT/Project/functions/rootHist_TXT/func")
-    from D1H_rootHist_TXT_conversion import D1H_roothist_to_txt
-    from D1H_rootHist_TXT_conversion_largeBin import D1H_roothist_to_txt_largeBin
-    TXT_FILE_LIST =  D1H_roothist_to_txt(HistROOT_PATH, "")
-    TXT_FILE_LIST_largeBin =  D1H_roothist_to_txt_largeBin(HistROOT_PATH_largeBin, "")
-
-#    sys.path.append("/roject_pre/func")
-    from c1_basic_statistic import *
-    from c2_basic_histo_plotting_ROOT import Basic_histo
-    #from c2_basic_histo_plotting import Basic_histo
-    from c4_Fit_Poisson_histo_plotting_ROOT import Fit_Poisson_histo
-    from c5_single_sample_mean_Zdistribution_ROOT import Fit_Sample_Gaus_histo
-    from c5_single_sample_mean_Tdistribution_ROOT import t_distribution
-    from c7_single_sample_variance_distribution_ROOT import Sample_Variance
-    #for Input_file in TXT_FILE_LIST:
-    print("this")
-    for ij in range(len(TXT_FILE_LIST)):
-        print("The file Name is :",TXT_FILE_LIST[ij])
-#        MODE = most_frequent_bin(TXT_FILE_LIST[ij]);      print("MODE :",MODE)
-#        DATA_RANGE = c1_data_range(TXT_FILE_LIST[ij]);    print("DATA_RANGE :",DATA_RANGE)
-#        MEDIAN = c1_median(TXT_FILE_LIST[ij]);            print("MEDIAN :",MEDIAN)
-#        Total_ENTRY = c1_total_ENTRY(TXT_FILE_LIST[ij]);  print("Total_ENTRY :",Total_ENTRY)
-#        MEAN = c1_mean(TXT_FILE_LIST[ij]);                print("MEAN :",MEAN)
-#        VARIANCE = c1_variance(TXT_FILE_LIST[ij]);        print("VARIANCE :",VARIANCE)
-#        STD = c1_standard_deviation(TXT_FILE_LIST[ij]);   print("STD :",STD)
-#        print("\n")
-        Basic_histo(TXT_FILE_LIST[ij], TXT_FILE_LIST_largeBin[ij])
-#        Fit_Poisson_histo(TXT_FILE_LIST[ij], TXT_FILE_LIST_largeBin[ij])
-        Fit_Sample_Gaus_histo(TXT_FILE_LIST[ij], TXT_FILE_LIST_largeBin[ij], exp_Mean_error=10)
-#        t_distribution(TXT_FILE_LIST[ij], TXT_FILE_LIST_largeBin[ij], Show_T=True, Show_sample=True, Show_Gaus=False)
-        t_distribution(TXT_FILE_LIST[ij],TXT_FILE_LIST_largeBin[ij], Show_T=True, Show_sample=True, Show_Gaus=True)
-        Sample_Variance(TXT_FILE_LIST[ij], TXT_FILE_LIST_largeBin[ij])
-
-    os.system("rm -rf ROOT_python_plots")
-    os.system("rm -rf ROOT_python_hist_texts")
-    os.system("mkdir ROOT_python_plots")
-    os.system("mkdir ROOT_python_hist_texts")
-    os.system("mv *.pdf ROOT_python_plots")
-    os.system("mv *hist.txt ROOT_python_hist_texts")
-    os.system("mv *hist_largeBin.txt ROOT_python_hist_texts")
-
-#    os.system("rm -rf ROOT_files")
-    os.system("mkdir ROOT_files")
-    os.system("mv *.root ROOT_files")
-    gBenchmark.Show("All in One")
 
 else:
 #    os.system("rm -rf ROOT_files")
     os.system("mkdir ROOT_files")
     os.system("mv *.root ROOT_files")
+    os.system("mkdir ROOT_2D_default")
+    os.system("mv *_defalut_2D.pdf ROOT_2D_default")
     gBenchmark.Show("All in One")
