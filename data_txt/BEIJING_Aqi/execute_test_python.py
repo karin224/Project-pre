@@ -1,7 +1,7 @@
 import sys
 import os
 
-INfile = "Aqi_Beijing_Holi.txt"
+INfile = "C:/Users/manggny/PycharmProjects/Project-pre/data_txt/BEIJING_Aqi/carbon_copied_data/missing_deleted_Aqi_Beijing_MERGE_Aqi_Beijing_Changed_300187.txt"
 BIN_Num = 100   # 1D histogram bins
 N_sigma = 4    ## Skiming of txt outof specific sigma region
 
