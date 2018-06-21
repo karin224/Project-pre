@@ -97,7 +97,11 @@ def formation(filename1,filename2): # it's the function which make file2 same fo
 
     DATE_ROW = MakeList_column(infile1)
     DATA_ROW = MakeList_column(infile2)
-
+	'''
+	con = 1
+	while con >0
+		a = input("What Colume do you want to add?")
+	'''
     form_date = DATE_ROW[0]
     data_date = DATA_ROW[0]
     list_amount = DATA_ROW[8]

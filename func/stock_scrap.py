@@ -13,8 +13,6 @@ class stock_scrap():
 
     def __init__(self):
 
-        #year = "2016"
-        #from_year =
         url = 'http://quotes.money.163.com/trade/lsjysj_601857.html?year=2016&season=4'
 
         pass
@@ -58,7 +56,7 @@ class stock_scrap():
         shareCodeStr = str(shareCode)
 
         f = open('./' + shareCodeStr + '.txt', 'w+')
-        f.write('date 开盘价 最高价 最低价 收盘价 涨跌额 涨跌幅（%）  volume(num) amount(10,000RMB) amplitude（%） 换手率（%）')
+        f.write('DATE 开盘价 最高价 最低价 收盘价 涨跌额 涨跌幅（%）  volume(num) amount(10,000RMB) amplitude（%） 换手率（%）')
         try:
             for i in range(beginYear,endYear+1):
                 print("year = "+str(i)+" is working....")
@@ -80,8 +78,8 @@ class stock_scrap():
             f.close()
 
 if __name__ == '__main__':
-    code = 600070 # you can find the codes in url http://quote.eastmoney.com/stocklist.html; some codes don't have data! you should check this first
-    from_date = 2008
+    code = 300187 # this is the code of 永清环保; some codes don't have data! you should check this first
+    from_date = 2013
     end_date = 2018
     stock_data = stock_scrap()
     stock_data.createUrl(code,from_date,end_date)
