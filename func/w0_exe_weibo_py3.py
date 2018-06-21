@@ -1,14 +1,14 @@
 import sys 
 import time
-#sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func")
+sys.path.append("C:/Users/manggny/Desktop")
 from w0_WEIBO_py3_Firefox import WEIBO
 
-ID_junho = ""
-PASSWD_junho = ""
+ID_junho = "manggny"
+PASSWD_junho = "zine013559"
 infilename = "PM_20180401_test.txt"
-day = 31
-month = 3
-year = 2018
+day = 12
+month = 8
+year = 2017
 
 weibo = WEIBO()
 weibo.AWAKE_BROWSER(filename = infilename)
