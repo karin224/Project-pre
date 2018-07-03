@@ -1,5 +1,5 @@
 import sys, os
-from date_maker import DATE_MAKER
+from w0_date_maker import DATE_MAKER
 from c0_READ_PATH_FILE import read_file_name
 from d0_makelist import MakeList
 from d0_makelist_column import MakeList_column
@@ -260,10 +260,10 @@ def DATA_Merger(infilename1, infilename2):
 
 def main():
     pass
-#    Outfile = ADD_daily_date_FirstLine(1996,1,1,"/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/SEOUL/ALL_DATA/FORMAT/SEOUL_SO2_O3_NO2_CO.txt")
+    Outfile = ADD_daily_date_FirstLine(2018,1,1,"/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/crawling/180101_Air_index.txt")
 #    Outfile = "/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/SEOUL/ALL_DATA/OLD_Since96_17Y_Daily.txt"
 #    MakeMonthlyDate_BaseOnDailyDate("/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/SEOUL/ALL_DATA/BEIJING_PM2p5_Daily.txt")
-    PICKING_BRANCH_n_SAVING("/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/SEOUL/day0_SEOUL_atmos/SEOUL_Day_MERGE_SEOUL_SO2_O3_NO2_CO_Daily.txt")
+#    PICKING_BRANCH_n_SAVING("/Users/leejunho/Desktop/git/python3Env/group_study/NOT_USUALLY_VISIT/statistic_group_study/R_language/soomin/RealPM2p5.txt")
 #    MakeYearlyDate_BaseOnMonthlyDate("/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/SEOUL/ALL_DATA/FORMAT/Since96_17Y_Monthly_PM10.txt")
 #    DATA_Merger("/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/SEOUL/day0_SEOUL_atmos/SEOUL_Day.txt","/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/SEOUL/day0_SEOUL_atmos/SEOUL_SO2_O3_NO2_CO_Daily.txt")
 
