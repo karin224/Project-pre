@@ -76,6 +76,7 @@ class DATE_MAKER:
         endDATE   = str_e_year + "-" + str_e_month + "-" + str_e_day
         RE_DATE = startDATE + ":" + startDATE
         END_DATE_FOR_TXT = str_s_year + str_s_month + str_s_day
-        return [startDATE,endDATE,RE_DATE,END_DATE_FOR_TXT]
+        END_DATE_FOR_TXT2 = str_e_year + str_e_month + str_e_day
+        return [startDATE,endDATE,RE_DATE,END_DATE_FOR_TXT,END_DATE_FOR_TXT2]
 
 
