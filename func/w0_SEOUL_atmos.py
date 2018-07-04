@@ -128,7 +128,7 @@ def main():
 
     year = 2010
     month= 1
-    keyword = "O3"
+    keyword = "O3"  # O3, PM10, PM25, NO2, CO, SO2
     while(year<2018):
         air_seoul.Click_for_DATE(year,month,keyword)
         air_seoul.Take_data_n_Write(filename="/Users/leejunho/Desktop/SSS_test.txt")

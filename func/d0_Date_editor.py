@@ -17,7 +17,8 @@ def ADD_daily_date_FirstLine(START_YEAR=1996,START_MONTH=1,START_DAY=1, infilena
     day = START_DAY
     DATE_class = DATE_MAKER()
     Daily_date_list = []; Daily_date_list.append("DATE")
-    for i in range(8036):
+    for i in range(10000):
+#    for i in range(8036):
         DATE_num = DATE_class.DATE_MAKER(year,month,day)
         DATE_str = DATE_class.MAKE_DATE_STR(DATE_num)
 #        print(DATE_str[3])
@@ -260,12 +261,12 @@ def DATA_Merger(infilename1, infilename2):
 
 def main():
     pass
-    Outfile = ADD_daily_date_FirstLine(2018,1,1,"/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/crawling/180101_Air_index.txt")
+#    Outfile = ADD_daily_date_FirstLine(2014,1,1,"/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/crawling/R_Humidity_2014_2018.txt")
 #    Outfile = "/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/SEOUL/ALL_DATA/OLD_Since96_17Y_Daily.txt"
 #    MakeMonthlyDate_BaseOnDailyDate("/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/SEOUL/ALL_DATA/BEIJING_PM2p5_Daily.txt")
-#    PICKING_BRANCH_n_SAVING("/Users/leejunho/Desktop/git/python3Env/group_study/NOT_USUALLY_VISIT/statistic_group_study/R_language/soomin/RealPM2p5.txt")
+#    PICKING_BRANCH_n_SAVING("/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/crawling/SEOUL_Since14_18Y_Daily.txt")
 #    MakeYearlyDate_BaseOnMonthlyDate("/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/SEOUL/ALL_DATA/FORMAT/Since96_17Y_Monthly_PM10.txt")
-#    DATA_Merger("/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/SEOUL/day0_SEOUL_atmos/SEOUL_Day.txt","/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/SEOUL/day0_SEOUL_atmos/SEOUL_SO2_O3_NO2_CO_Daily.txt")
+    DATA_Merger("/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/crawling/SEOUL_Since14_18Y_Daily_MERGE_R_Humidity_2014_2018.txt","/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/crawling/Wind_speed_2014_2018.txt")
 
 
 if __name__=="__main__":
