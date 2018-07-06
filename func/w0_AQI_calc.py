@@ -80,7 +80,7 @@ class AQI_CALC:
 
     def Read_out_DATA(self):
         output = self.driver1.find_elements_by_name("outputbox1")[1]
-        print(output.text)
+        #print(output.value)
 
 
     def QUIT(self):
