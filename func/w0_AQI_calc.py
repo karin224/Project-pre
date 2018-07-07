@@ -7,6 +7,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import Select
+sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func")
+from d0_makelist_column import MakeList_column
 
 class AQI_CALC:
 
@@ -23,6 +25,7 @@ class AQI_CALC:
         print("NEW Web Browser is Opened")
         print("======================================================================")
 
+
     def Access_URL(self, URL):
         url_finish = 0
         TT = -1
@@ -35,14 +38,14 @@ class AQI_CALC:
                     self.driver1.get(URL)
                     time.sleep(2)
                     try:
-                        element = WebDriverWait(self.driver1,5+3*TT).until(EC.presence_of_element_located((By.CLASS_NAME,"ui-state-default.ui-corner-top")))
+                        element = WebDriverWait(self.driver1,5+3*TT).until(EC.presence_of_element_located((By.CLASS_NAME,"polselectiontr")))
                         url_finish = 1
                     except:
                         print("!@#!@#!")
                 else:
                     self.driver1.refresh()
                     time.sleep(2)
-                    element = WebDriverWait(self.driver1,5+2*TT).until(EC.presence_of_element_located((By.CLASS_NAME,"ui-state-default.ui-corner-top")))
+                    element = WebDriverWait(self.driver1,5+2*TT).until(EC.presence_of_element_located((By.CLASS_NAME,"polselectiontr")))
                     print("            Refreshing WEB page...")
                     time.sleep(2)
             except:
@@ -52,35 +55,50 @@ class AQI_CALC:
 
 
     def Click_for_DATA(self):
-        Try_multi = 0        
-        Need_LOADED = 0
-        while(Need_LOADED==0):
-            try:
-                Try_multi = Try_multi + 1
-                self.driver1.find_element_by_id("conc").click(); time.sleep(0.8)
-                TTT = input("[Nedd your help] '111', after selecting a pollutant\n")
-                #self.driver1.find_element_by_name('pollutant').click()
-                #select = Select(self.driver1.find_element_by_name('pollutant'))
-                #print(select)
-                #Temp_select = select.select_by_value('1'); #Select.click(); 
-                #print(Temp_select)
-                Need_LOADED = 1
-            except:
-                if(Try_multi > 2):
-                    TTT = input("[Need your help] Please make sure the page is successfully loaded... press 'Enter' to continue")
-                    Need_LOADED = 1
-                else:
-                    continue
-        print("    *Successfully searched the date!")
-        time.sleep(2)
+        TTT = input("[Nedd your help] '111', after selecting a pollutant\n"); time.sleep(1)
+#        ITEMs = self.driver1.find_elements_by_class_name('polselectiontr')
+#        ITEMs =  self.driver1.find_element_by_xpath("//tr[td='Particulate <2.5 microns ']")
+#        print(ITEMs); #print(len(ITEMs))
+#        ITEMs.click()
+        #tt = ITEMs[1].tr
+        #for i in range(8):
+        #    ITEMs[i].click()
+        #    time.sleep(0.3)
 
-    def Input_Data(self,DATA):
-        self.driver1.find_elements_by_name("inputbox")[1].send_keys(DATA)
-        self.driver1.find_elements_by_name("Calculate")[1].click()
 
-    def Read_out_DATA(self):
-        output = self.driver1.find_elements_by_name("outputbox1")[1]
-        #print(output.value)
+
+    def Input_value(self,INPUT):
+        self.driver1.find_element_by_class_name("polvalue").clear()
+        self.driver1.find_element_by_class_name("polvalue").send_keys(INPUT)
+        time.sleep(0.5)
+
+    def Output_DATA(self):
+        #outData = self.driver1.find_element_by_id("helptexteffect")
+#        OutData = self.driver1.find_element_by_xpath("//div[@id='helptexteffect']/span[@id='aqival']")
+        OutData = self.driver1.find_element_by_xpath("//div[@id='helptexteffect']")
+        for i in range(len(OutData.text)):
+            if(OutData.text[i] == '\n'):
+                num = i
+                break
+        OUTDATA = (OutData.text)[5:num]
+        #print(OUTDATA)
+        return OUTDATA
+
+    def CREATE_n_WRITE_INTO_TXT(self,outfileName, Write_LIST):
+        ofile = outfileName
+        OF = open(ofile,"w+")
+        for i in range(len(Write_LIST[0])):
+            for j in range(len(Write_LIST)):
+                if j == (len(Write_LIST)-1):
+                    OF.write("%s\n" %str(int(Write_LIST[j][i])))
+                OF.write("%s " %str(int(Write_LIST[j][i])))
+
+#            for j in range(len(Write_LIST[i])):
+#                if j==(len(Write_LIST[i])-1):
+#                    OF.write("%s\n" %str(int(Write_LIST[i][j])))
+#                OF.write("%s " %str(int(Write_LIST[i][j])))
+        OF.close()
+
 
 
     def QUIT(self):
@@ -91,22 +109,54 @@ class AQI_CALC:
         self.driver1.quit()
 
 
-
-
 def main():
     AQI = AQI_CALC()
-    AQI.AWAKE_BROWSER(); time.sleep(2)
-    AQI.Access_URL("https://www.airnow.gov/index.cfm?action=airnow.calculator")
-    AQI.Click_for_DATA()
-    AQI.Input_Data('100')
-    AQI.Read_out_DATA()
+    AQI.AWAKE_BROWSER()
+    AQI.Access_URL(URL="http://aqicn.org/calculator/kr/")
+    #AQI.Click_for_DATA()
+    col_list = MakeList_column("/Users/leejunho/Desktop/git/python3Env/group_study/NOT_USUALLY_VISIT/statistic_group_study/R_language/test/SEOUL_Day_R_P.txt")
+    Write_list = []
+    for i in range(1,2): 
+        if i==0:
+            print("choose PM2.5") 
+            OUT_NAME = "PM2p5"
+        elif i==1:
+            print("choose PM10")
+            OUT_NAME = "PM10"
+        elif i==2:
+            print("choose O3(8hr)")
+            OUT_NAME = "O3"
+        elif i==3:
+            print("choose SO2(1hr)")
+            OUT_NAME = "SO2"
+        elif i==4:
+            print("choose NO2")
+            OUT_NAME = "NO2"
+        elif i==5:
+            print("choose CO")
+            OUT_NAME = "CO"
 
-    time.sleep(2)
-    AQI.QUIT()
+        AQI.Click_for_DATA()
+        temp_list = []
+        for j in range(len(col_list[i])):
+#        for j in range(10):
+            if(j==0):
+                continue
+            AQI.Input_value(col_list[i][j])
+            DATA_out = AQI.Output_DATA()
+            DATA_out = float(DATA_out)
+            print(j, DATA_out)
+            temp_list.append(DATA_out)
+        Write_list.append(temp_list)
+
+    outfile = "/Users/leejunho/Desktop/git/python3Env/group_study/NOT_USUALLY_VISIT/statistic_group_study/R_language/test/AQI_PM10.txt" 
+    AQI.CREATE_n_WRITE_INTO_TXT(outfileName=outfile,Write_LIST=Write_list)
+#    AQI.Input_value('100') 
+    AQI.Output_DATA() 
+
 
 if __name__=="__main__":
     main()
-
 
 
 
