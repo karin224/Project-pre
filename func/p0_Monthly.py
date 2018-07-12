@@ -16,7 +16,7 @@ def PlotProper_YearDATE(filename,title="Development",Xlabel="Date",Ylabel="Objec
     temp_x = []
     error_low = []; error_high = [];
     error_2low = []; error_2high = [];
-    sqrt_MSE = math.sqrt(MSE*MSE/365.0)
+    sqrt_MSE = math.sqrt(MSE)
     MIN_Y=0; MAX_Y=0
     for i in range(len(Col_list[1])):
         if(i==0):
@@ -39,14 +39,14 @@ def PlotProper_YearDATE(filename,title="Development",Xlabel="Date",Ylabel="Objec
 
     plt.grid(True)
     plt.plot(Y_data,'b^:')
-    plt.fill_between(temp_x,error_2low,error_2high,edgecolor='#FF9848', facecolor='#FF9848')
+    #plt.fill_between(temp_x,error_2low,error_2high,edgecolor='#FF9848', facecolor='#FF9848')
     plt.fill_between(temp_x,error_low,error_high,edgecolor='#7EFF99', facecolor='#7EFF99')
     #plt.fill_between(temp_x,error_2low,error_2high,edgecolor='#CC4F1B', facecolor='#FF9848')
     plt.plot([18,19,20,21],[23.69,23.08,26.17,24.72],'r^-')  #Manually input real 2014,2015,2016,2017 DATA
     #plt.plot(temp_x,'r:')
     plt.title(title)
-    plt.xlabel(Xlabel); plt.ylabel(Ylabel)
-    plt.axis([-1,len(Col_list[1])-1,MIN_Y-RANGE_Y,MAX_Y+RANGE_Y])
+    plt.xlabel(Xlabel,fontsize=16,color='r'); plt.ylabel(Ylabel,fontsize=16,color='r')
+    plt.axis([-1,len(Col_list[1])-1,0,MAX_Y+RANGE_Y])
     #plt.xticks(np.arange(len(Col_list[1])),('Tom', '', '', '', 'Sue'))
     if(len(Col_list[1]) < 10):
         plt.xticks(np.arange(len(Col_list[1]),nomi_X_date))
@@ -68,7 +68,10 @@ def PlotProper_YearDATE(filename,title="Development",Xlabel="Date",Ylabel="Objec
             else:
                 XTicks.append("")
         plt.xticks(np.arange(len(Col_list[1])),XTicks)
-    plt.legend(["Predicted PM2.5","Recorded PM2.5",r"$2 \sigma$ Error band", r"$1 \sigma$ Error band"])
+    #plt.legend(["Predicted PM2.5","Recorded PM2.5",r"$2 \sigma$ Error band", r"$1 \sigma$ Error band"])
+    #plt.legend(["Predicted PM2.5","Recorded PM2.5",r"$1 \sigma$ Error band"])
+    #plt.legend(["PM2.5 Estimated","PM2.5 Recorded",r"$\sqrt{MSE}$ Estimated"])
+    plt.legend(["PM2.5 Estimated","PM2.5 Recorded","Error Estimated"],prop={'size': 12})
     plt.show()
 
 
@@ -76,7 +79,8 @@ def PlotProper_YearDATE(filename,title="Development",Xlabel="Date",Ylabel="Objec
 def main():
 #    infile = "/Users/leejunho/Desktop/git/python3Env/group_study/NOT_USUALLY_VISIT/statistic_group_study/R_language/PM2p5_DNN_Since97_predicted_Monthly.txt"
     infile = "/Users/leejunho/Desktop/git/python3Env/group_study/NOT_USUALLY_VISIT/statistic_group_study/R_language/PM2p5_DNN_Since97_predicted_Year.txt"
-    PlotProper_YearDATE(infile, title="PM2.5 in SEOUL",Xlabel="DATE (Year)",Ylabel= r"PM2.5 Density $(\mu g/m^3)$",MSE=18.7915)
+#    infile = "/Users/leejunho/Desktop/git/python3Env/group_study/NOT_USUALLY_VISIT/statistic_group_study/R_language/PM2p5_DNN_Since97_v2_Year.txt"
+    PlotProper_YearDATE(infile, title="PM2.5 in SEOUL",Xlabel="DATE (Year)",Ylabel= r"PM2.5 Density $(\mu g/m^3)$",MSE=2.669*2.669)
 
 if __name__=="__main__":
     main()
