@@ -22,6 +22,12 @@ class SEOUL_AIR:
         print("NEW Web Browser is Opened")
         print("======================================================================")
 
+    def Try_BAIDU(self,URL):
+        try:
+	    self.driver1.get("https://www.baidu.com")
+	    time.sleep(1.5)
+	except:
+	    print("BAIDU access failed")
 
     def Access_URL(self, URL):
         url_finish = 0
@@ -178,6 +184,7 @@ def main():
     year = 2008
     month = 4
     day = 9
+    refresh_flag = 0
     while(year<2010):  ## this might make one more additional day
         DateList = DATE_class.DATE_MAKER(START_YEAR=year,START_MONTH=month,START_DAY=day)
         air_seoul.Click_for_DATE(DateList[0],DateList[1],DateList[2]); time.sleep(1);
@@ -189,6 +196,11 @@ def main():
         year = DateList[0]
         month = DateList[1]
         day = DateList[2] + 1
+        if(refresh_flag >10):
+	    air_seoul.Try_BAIDU()
+            air_seoul.Access_URL("http://cleanair.seoul.go.kr/air_city.htm?method=measure&citySection=CITY"); time.sleep(2)
+	    refresh_flag = 0
+	refresh_flag = refresh_flag + 1
 
  
     #air_seoul.Click_for_DATE(); time.sleep(1); 
