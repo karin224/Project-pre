@@ -11,6 +11,7 @@ from w0_date_maker import DATE_MAKER
 class SEOUL_AIR:
 
     def __init__(self):
+        self.List_Write = []
         pass
 
     def AWAKE_BROWSER(self):
@@ -22,12 +23,12 @@ class SEOUL_AIR:
         print("NEW Web Browser is Opened")
         print("======================================================================")
 
-    def Try_BAIDU(self,URL):
+    def Try_BAIDU(self):
         try:
-	    self.driver1.get("https://www.baidu.com")
-	    time.sleep(1.5)
-	except:
-	    print("BAIDU access failed")
+            self.driver1.get("https://www.baidu.com")
+            time.sleep(1.5)
+        except:
+            print("BAIDU access failed")
 
     def Access_URL(self, URL):
         url_finish = 0
@@ -103,7 +104,7 @@ class SEOUL_AIR:
         print(" The Date is :", Init_year, Init_Month,Init_Day)
         time.sleep(1)
 
-    def Click_for_Hour_n_write(self,Date,outfilename):
+    def Click_for_Hour_n_write(self,Date):
         flag1 = 0
         rotation_flag = 1
         while True:
@@ -123,13 +124,16 @@ class SEOUL_AIR:
                     rotation_flag = rotation_flag + 1
                 except:
                     print("!@#!@#!@#"); continue
-                self.Take_data_n_Write(DATE=Date_write,filename=outfilename) 
+#                self.Take_data_n_Write(DATE=Date_write,filename=outfilename) 
+                self.List_Write.append(self.Take_data_n_Write(DATE=Date_write))
             except:
                 flag1 = flag1 + 1
                 if(flag1>10):
                     TTT = input("[Need your help] on Hour, Please make sure the page is successfully loaded... press 'Enter' to continue")
             print("    *Successfully searched the Hour!")
             time.sleep(0.2)
+        return self.List_Write
+
 
     def CREATE_n_WRITE_INTO_TXT(self, outfileName, Write_LIST):
         filename = outfileName
@@ -151,14 +155,15 @@ class SEOUL_AIR:
         ofile = filename
         OF = open(ofile,"a+")
         for i in range(len(Write_LIST)):
-            if i==len(Write_LIST)-1:
-                OF.write("%s" %Write_LIST[i])
-                OF.write("\n")
-            else:
-                OF.write("%s " %Write_LIST[i])
+            for j in range(len(Write_LIST[i])):
+                if j==len(Write_LIST[i])-1:
+                    OF.write("%s" %Write_LIST[i][j])
+                    OF.write("\n")
+                else:
+                    OF.write("%s " %Write_LIST[i][j])
         OF.close()
 
-    def Take_data_n_Write(self,DATE, filename="test.txt"):
+    def Take_data_n_Write(self,DATE):
         DATA_LIST = []
         DATA_LIST.append(str(DATE))
         data = "//*[contains(@class,'num_color_')]"
@@ -166,7 +171,7 @@ class SEOUL_AIR:
         for i in range(6):
             DATA_LIST.append(DATA[i].text)
         print(DATA_LIST)
-        self.CREATE_n_WRITE_INTO_TXT(outfileName=filename, Write_LIST=DATA_LIST)
+        return DATA_LIST
 
 
     def QUIT(self):
@@ -182,25 +187,28 @@ def main():
     air_seoul.Access_URL("http://cleanair.seoul.go.kr/air_city.htm?method=measure&citySection=CITY"); time.sleep(2)
     DATE_class = DATE_MAKER()
     year = 2008
-    month = 4
-    day = 9
+    month = 6
+    day = 20
     refresh_flag = 0
     while(year<2010):  ## this might make one more additional day
         DateList = DATE_class.DATE_MAKER(START_YEAR=year,START_MONTH=month,START_DAY=day)
         air_seoul.Click_for_DATE(DateList[0],DateList[1],DateList[2]); time.sleep(1);
         #air_seoul.Take_data_n_Write(filename="/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/crawling/180101_Air_index.txt")
 #        air_seoul.Take_data_n_Write(filename="Test1.txt")
-        Date_info = str(year) + air_seoul.Day_Date_maker(month) + air_seoul.Day_maker(day)
+        Date_info = str(DateList[0]) + air_seoul.Day_Date_maker(DateList[1]) + air_seoul.Day_maker(DateList[2])
         #print(Date_info)
-        air_seoul.Click_for_Hour_n_write(Date = Date_info,outfilename="2008_hourly.txt")
+        List_to_write = air_seoul.Click_for_Hour_n_write(Date = Date_info)#,outfilename="2008start_hourly.txt")
+        print(List_to_write)
         year = DateList[0]
         month = DateList[1]
         day = DateList[2] + 1
-        if(refresh_flag >10):
-	    air_seoul.Try_BAIDU()
+        if(refresh_flag >=4):
+            air_seoul.CREATE_n_WRITE_INTO_TXT(outfileName="2008start_hourly.txt", Write_LIST=List_to_write)
+            air_seoul.List_Write=[]
+            air_seoul.Try_BAIDU()
             air_seoul.Access_URL("http://cleanair.seoul.go.kr/air_city.htm?method=measure&citySection=CITY"); time.sleep(2)
-	    refresh_flag = 0
-	refresh_flag = refresh_flag + 1
+            refresh_flag = 0
+        refresh_flag = refresh_flag + 1
 
  
     #air_seoul.Click_for_DATE(); time.sleep(1); 
