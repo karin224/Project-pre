@@ -202,7 +202,7 @@ def main():
         year = DateList[0]
         month = DateList[1]
         day = DateList[2] + 1
-        if(refresh_flag >=4):
+        if(refresh_flag >=1):
             air_seoul.CREATE_n_WRITE_INTO_TXT(outfileName="2008start_hourly.txt", Write_LIST=List_to_write)
             air_seoul.List_Write=[]
             air_seoul.Try_BAIDU()
