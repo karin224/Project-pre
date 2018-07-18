@@ -326,7 +326,9 @@ class BAIDU_INDEX:
                 DATA = DATA.replace(".","");  DATA = DATA.replace("‘",""); DATA = DATA.replace("?","7");
                 DATA = DATA.replace("\n","")
                 DATA = DATA.replace(" ","")
-                DATA = DATA.replace("S","5"); 
+                DATA = DATA.replace("S","5");
+                DATA = DATA.replace("s","5"); 
+                DATA = DATA.replace("E","8"); 
                 break
 #            print(DATE_INFO)
             try:

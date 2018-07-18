@@ -119,7 +119,8 @@ class BAIDU_INDEX:
         print("        Log in Successful!")
         time.sleep(3)
 
-
+#http://index.baidu.com/?tpl=trend&word=%C9%A4%D7%D3%CC%DB
+#http://index.baidu.com/?tpl=trend&word=%C9%A4%D7%D3%CC%DB
     def ACCESS_URL(self, URL="http://index.baidu.com/?tpl=trend&type=0&area=514&time=13&word=%CE%ED%F6%B2", start_year="2014", start_month="01", end_month="04" ,xposition=45, yposition=302, endx=1230):
         url_finish=0
         TT = -1
@@ -326,7 +327,9 @@ class BAIDU_INDEX:
                 DATA = DATA.replace(".","");  DATA = DATA.replace("‘",""); DATA = DATA.replace("?","7");
                 DATA = DATA.replace("\n","")
                 DATA = DATA.replace(" ","")
-                DATA = DATA.replace("S","5"); 
+                DATA = DATA.replace("S","5");
+                DATA = DATA.replace("s","5"); 
+                DATA = DATA.replace("E","8"); 
                 break
 #            print(DATE_INFO)
             try:
