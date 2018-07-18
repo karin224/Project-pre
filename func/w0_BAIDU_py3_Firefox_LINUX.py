@@ -120,7 +120,7 @@ class BAIDU_INDEX:
         time.sleep(3)
 
 
-    def ACCESS_URL(self, URL="http://index.baidu.com/?tpl=trend&type=0&area=514&time=13&word=%CE%ED%F6%B2", start_year="2014", start_month="01", end_month="04" ,xposition=70, yposition=282, endx=1380):
+    def ACCESS_URL(self, URL="http://index.baidu.com/?tpl=trend&type=0&area=514&time=13&word=%CE%ED%F6%B2", start_year="2014", start_month="01", end_month="04" ,xposition=72, yposition=282, endx=1380):
         url_finish=0
         TT = -1
         while url_finish==0:
