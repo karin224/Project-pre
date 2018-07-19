@@ -319,7 +319,8 @@ class BAIDU_INDEX:
                          
             #sys.stdout.write('\a')
             #sys.stdout.write('\a')
-            os.system("tesseract AA.png AA_out")
+            #os.system("tesseract AA.png AA_out")
+            os.system("tesseract AA.png AA_out nobatch digits")
             time.sleep(1)
             infile = open("AA_out.txt","r")
             for line in infile:
