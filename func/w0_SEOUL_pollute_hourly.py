@@ -186,11 +186,11 @@ def main():
     air_seoul.AWAKE_BROWSER(); time.sleep(2)
     air_seoul.Access_URL("http://cleanair.seoul.go.kr/air_city.htm?method=measure&citySection=CITY"); time.sleep(2)
     DATE_class = DATE_MAKER()
-    year = 2008
-    month = 6
-    day = 20
+    year = 2015
+    month = 1
+    day = 1
     refresh_flag = 0
-    while(year<2010):  ## this might make one more additional day
+    while(year<2016):  ## this might make one more additional day
         DateList = DATE_class.DATE_MAKER(START_YEAR=year,START_MONTH=month,START_DAY=day)
         air_seoul.Click_for_DATE(DateList[0],DateList[1],DateList[2]); time.sleep(1);
         #air_seoul.Take_data_n_Write(filename="/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/crawling/180101_Air_index.txt")
@@ -203,7 +203,7 @@ def main():
         month = DateList[1]
         day = DateList[2] + 1
         if(refresh_flag >=1):
-            air_seoul.CREATE_n_WRITE_INTO_TXT(outfileName="2008start_hourly.txt", Write_LIST=List_to_write)
+            air_seoul.CREATE_n_WRITE_INTO_TXT(outfileName="2015start_hourly.txt", Write_LIST=List_to_write)
             air_seoul.List_Write=[]
             air_seoul.Try_BAIDU()
             air_seoul.Access_URL("http://cleanair.seoul.go.kr/air_city.htm?method=measure&citySection=CITY"); time.sleep(2)
