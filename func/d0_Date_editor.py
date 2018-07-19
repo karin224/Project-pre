@@ -261,12 +261,15 @@ def DATA_Merger(infilename1, infilename2):
 
 def main():
     pass
-#    Outfile = ADD_daily_date_FirstLine(2014,1,1,"/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/crawling/R_Humidity_2014_2018.txt")
+    #Outfile = ADD_daily_date_FirstLine(1996,1,1,"/Users/leejunho/Desktop/git/python3Env/group_study/NOT_USUALLY_VISIT/statistic_group_study/R_language/PM2p5_DNN_Since97_v2.txt")
+    #ADD_daily_date_FirstLine(1996,1,1,"/Users/leejunho/Desktop/git/python3Env/group_study/NOT_USUALLY_VISIT/statistic_group_study/R_language/SEOUL_Day_R.txt")
 #    Outfile = "/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/SEOUL/ALL_DATA/OLD_Since96_17Y_Daily.txt"
-#    MakeMonthlyDate_BaseOnDailyDate("/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/SEOUL/ALL_DATA/BEIJING_PM2p5_Daily.txt")
-#    PICKING_BRANCH_n_SAVING("/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/crawling/SEOUL_Since14_18Y_Daily.txt")
-#    MakeYearlyDate_BaseOnMonthlyDate("/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/SEOUL/ALL_DATA/FORMAT/Since96_17Y_Monthly_PM10.txt")
-    DATA_Merger("/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/crawling/SEOUL_Since14_18Y_Daily_MERGE_R_Humidity_2014_2018.txt","/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/crawling/Wind_speed_2014_2018.txt")
+    #MakeMonthlyDate_BaseOnDailyDate("/Users/leejunho/Desktop/git/python3Env/group_study/NOT_USUALLY_VISIT/statistic_group_study/R_language/PM2p5_DNN_Since97_v2_Daily.txt")
+    #PICKING_BRANCH_n_SAVING("/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/crawling/tt2.txt")
+    PICKING_BRANCH_n_SAVING("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/BEIJING_Aqi/carbon_copied_data/n4_temp_mean/Aqi_Beijing_TempM.txt")
+    #MakeYearlyDate_BaseOnMonthlyDate("/Users/leejunho/Desktop/git/python3Env/group_study/NOT_USUALLY_VISIT/statistic_group_study/R_language/PM2p5_DNN_Since97_v2_Monthly.txt")
+#    DATA_Merger("/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/crawling/SEOUL_Since96_18Y_Daily.txt","/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/crawling/outtest1.txt")
+    #DATA_Merger("/Users/leejunho/Desktop/git/python3Env/group_study/NOT_USUALLY_VISIT/statistic_group_study/R_language/ZZ_predict_Daily.txt","/Users/leejunho/Desktop/git/python3Env/group_study/NOT_USUALLY_VISIT/statistic_group_study/R_language/ZZ_real.txt")
 
 
 if __name__=="__main__":

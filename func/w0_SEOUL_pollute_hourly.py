@@ -204,7 +204,11 @@ def main():
         month = DateList[1]
         day = DateList[2] + 1
         if(refresh_flag >=1):
+<<<<<<< HEAD
             air_seoul.CREATE_n_WRITE_INTO_TXT(outfileName="2011start_hourly.txt", Write_LIST=List_to_write)
+=======
+            air_seoul.CREATE_n_WRITE_INTO_TXT(outfileName="2015start_hourly.txt", Write_LIST=List_to_write)
+>>>>>>> aabe41da89f2e0b63f18419a76bb2e8f10d8267e
             air_seoul.List_Write=[]
             air_seoul.Try_BAIDU()
             air_seoul.Access_URL("http://cleanair.seoul.go.kr/air_city.htm?method=measure&citySection=CITY"); time.sleep(2)

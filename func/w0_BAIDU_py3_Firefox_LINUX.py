@@ -120,7 +120,7 @@ class BAIDU_INDEX:
         time.sleep(3)
 
 
-    def ACCESS_URL(self, URL="http://index.baidu.com/?tpl=trend&type=0&area=514&time=13&word=%CE%ED%F6%B2", start_year="2014", start_month="01", end_month="04" ,xposition=45, yposition=302, endx=1230):
+    def ACCESS_URL(self, URL="http://index.baidu.com/?tpl=trend&type=0&area=514&time=13&word=%CE%ED%F6%B2", start_year="2014", start_month="01", end_month="04" ,xposition=73, yposition=282, endx=1500):
         url_finish=0
         TT = -1
         while url_finish==0:
@@ -309,15 +309,17 @@ class BAIDU_INDEX:
                     if(NO_IMAGE>3):
                         print("There is no View BOX!! Please control your mouse to show the box!")
                         print("Saved until *", data_list[-1][0], "* ...")
-                        sys.stdout.write('\a');sys.stdout.write('\a');sys.stdout.write('\a');sys.stdout.write('\a');sys.stdout.write('\a');
+                        #sys.stdout.write('\a');sys.stdout.write('\a');sys.stdout.write('\a');sys.stdout.write('\a');sys.stdout.write('\a');
+                        os.system("paplay beep-01a.wav"); os.system("paplay beep-01a.wav")
                         TTT = input(" [Need your help] press 'Enter' to continue!!  ")
                         time.sleep(5)
                     NO_IMAGE = NO_IMAGE + 1
                     #print("3"); time.sleep(1); print("2"); time.sleep(1);print("1"); time.sleep(1); print("0!");
                          
-            sys.stdout.write('\a')
-            sys.stdout.write('\a')
-            os.system("tesseract AA.png AA_out")
+            #sys.stdout.write('\a')
+            #sys.stdout.write('\a')
+            #os.system("tesseract AA.png AA_out")
+            os.system("tesseract AA.png AA_out nobatch digits")
             time.sleep(1)
             infile = open("AA_out.txt","r")
             for line in infile:
@@ -326,7 +328,10 @@ class BAIDU_INDEX:
                 DATA = DATA.replace(".","");  DATA = DATA.replace("‘",""); DATA = DATA.replace("?","7");
                 DATA = DATA.replace("\n","")
                 DATA = DATA.replace(" ","")
-                DATA = DATA.replace("S","5"); 
+                DATA = DATA.replace("S","5");
+                DATA = DATA.replace("s","5"); 
+                DATA = DATA.replace("E","8"); 
+                DATA = DATA.replace("a","3"); 
                 break
 #            print(DATE_INFO)
             try:

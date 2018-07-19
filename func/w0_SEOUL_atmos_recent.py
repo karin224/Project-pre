@@ -139,13 +139,14 @@ def main():
     air_seoul.AWAKE_BROWSER(); time.sleep(2)
     air_seoul.Access_URL("http://cleanair.seoul.go.kr/air_city.htm?method=measure&citySection=CITY"); time.sleep(2)
     DATE_class = DATE_MAKER()
-    year = 2018
+    year = 2014
     month = 1
     day = 1
-    while(month<7):  ## this might make one more additional day
+    while(month<2):  ## this might make one more additional day
         DateList = DATE_class.DATE_MAKER(START_YEAR=year,START_MONTH=month,START_DAY=day)
         air_seoul.Click_for_DATE(DateList[0],DateList[1],DateList[2]); time.sleep(1);
-        air_seoul.Take_data_n_Write(filename="/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/crawling/180101_Air_index.txt")
+        #air_seoul.Take_data_n_Write(filename="/Users/leejunho/Desktop/git/python3Env/group_study/ko_stats/data/crawling/180101_Air_index.txt")
+        air_seoul.Take_data_n_Write(filename="Test1.txt")
         year = DateList[0]
         month = DateList[1]
         day = DateList[2] + 1
