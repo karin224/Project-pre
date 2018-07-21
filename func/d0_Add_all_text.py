@@ -3,7 +3,7 @@ sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/
 from c0_READ_PATH_FILE import read_file_name
 from d0_makelist import MakeList
 
-
+ADD every text file into a new text file, first line with the name of text file
 def getData():
     all_text_path = []
     loadfile = ['.']
