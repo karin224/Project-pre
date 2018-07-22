@@ -20,8 +20,8 @@ class WEIBO:
 #        self.driver1 = webdriver.PhantomJS()
 #        self.driver1  = webdriver.Chrome()
         self.driver1 = webdriver.Firefox()
-        self.driver1.set_page_load_timeout(15)
-        self.driver1.implicitly_wait(20)
+        self.driver1.set_page_load_timeout(35)
+        self.driver1.implicitly_wait(35)
         time.sleep(3)
         print("======================================================================")
         print("NEW Web Browser is Opened")
@@ -57,15 +57,15 @@ class WEIBO:
             WRITE_NAME = 0
             EJ_WAIT = 0
             while WRITE_NAME == 0:
-                self.driver1.set_page_load_timeout(15+EJ_WAIT*10)
-                self.driver1.implicitly_wait(15+EJ_WAIT*10)
+                self.driver1.set_page_load_timeout(30+EJ_WAIT*10)
+                self.driver1.implicitly_wait(30+EJ_WAIT*10)
                 try:
                     self.driver1.find_element_by_id("loginname").clear()
                     self.driver1.find_element_by_id("loginname").send_keys(ID)
                     self.driver1.find_element_by_name("password").send_keys(PASSWD)
-                    time.sleep(2+ EJ_WAIT*5)
+                    time.sleep(5+ EJ_WAIT*5)
                     self.driver1.find_element_by_css_selector(".W_btn_a.btn_32px").click()
-                    time.sleep(2+ EJ_WAIT*5)
+                    time.sleep(5+ EJ_WAIT*5)
                     WRITE_NAME = 1
                     time.sleep(5+ EJ_WAIT*5)
                 except:
@@ -125,10 +125,10 @@ class WEIBO:
             if(s_month > 12):
                 s_month = s_month - 12
                 s_year = s_year + 1
-        elif( (s_day >29) & ((START_MONTH ==2) & START_YEAR==2016)   ):
+        elif( (s_day >29) & ((START_MONTH ==2) & (START_YEAR%4 == 0))   ):
             s_day = s_day-29
             s_month = s_month + 1
-        elif((s_day >28) & (START_MONTH ==2) ):    
+        elif((s_day >28) & (START_MONTH ==2) & (START_YEAR%4 != 0) ):    
             s_day = s_day-28
             s_month = s_month + 1
         else:
@@ -142,10 +142,10 @@ class WEIBO:
         elif((e_day >30 ) & ((START_MONTH ==4)|(START_MONTH ==6)|(START_MONTH ==9)|(START_MONTH ==11))):
             e_day = e_day -30
             e_month = e_month + 1
-        elif((e_day >29 ) & ((START_MONTH ==2) & START_YEAR==2016)   ):
+        elif((e_day >29 ) & ((START_MONTH ==2) & (START_YEAR%4==0))   ):
             e_day = e_day -29
             e_month = e_month + 1
-        elif((e_day >28) & (START_MONTH ==2) ):
+        elif((e_day >28) & (START_MONTH ==2) &(START_YEAR%4 != 0) ):
             e_day = e_day -28
             e_month = e_month + 1
         else:
@@ -174,7 +174,7 @@ class WEIBO:
             str_e_day = str(DATE_LIST[5])
         startDATE = str_s_year + "-" + str_s_month + "-" + str_s_day
         endDATE   = str_e_year + "-" + str_e_month + "-" + str_e_day
-        RE_DATE = startDATE + ":" + startDATE
+        RE_DATE = startDATE + ":" + startDATE  # Since in WEIBO, 2016-01-03:2016-01-03 means whole day of 2016-01-03
         END_DATE_FOR_TXT = str_s_year + str_s_month + str_s_day
         return [startDATE,endDATE,RE_DATE,END_DATE_FOR_TXT] 
 

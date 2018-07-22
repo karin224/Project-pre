@@ -119,9 +119,8 @@ class BAIDU_INDEX:
         print("        Log in Successful!")
         time.sleep(3)
 
-#http://index.baidu.com/?tpl=trend&word=%C9%A4%D7%D3%CC%DB
-#http://index.baidu.com/?tpl=trend&word=%C9%A4%D7%D3%CC%DB
-    def ACCESS_URL(self, URL="http://index.baidu.com/?tpl=trend&type=0&area=514&time=13&word=%CE%ED%F6%B2", start_year="2014", start_month="01", end_month="04" ,xposition=72, yposition=282, endx=1460):
+
+    def ACCESS_URL(self, URL="http://index.baidu.com/?tpl=trend&type=0&area=514&time=13&word=%CE%ED%F6%B2", start_year="2014", start_month="01", end_month="04" ,xposition=73, yposition=282, endx=1500):
         url_finish=0
         TT = -1
         while url_finish==0:
@@ -273,10 +272,10 @@ class BAIDU_INDEX:
                 locations_box = VBOX.location
 #                print("view box location : ", locations_box)
 
-                left = 2*location_view_value['x']
-                top = 2*(location_view_value['y'] - location_frame['y'])
-                right = left + 2*view_value_size['width']
-                bottom = top + 2*view_value_size['height']
+                left = int(location_view_value['x'])
+                top = int((location_view_value['y'] - location_frame['y']))
+                right = int(left + view_value_size['width'])
+                bottom = int(top + view_value_size['height'])
 #                print("Location reading!"); print("Stay for a second!")
 
                 time.sleep(2)
@@ -332,7 +331,7 @@ class BAIDU_INDEX:
                 DATA = DATA.replace("S","5");
                 DATA = DATA.replace("s","5"); 
                 DATA = DATA.replace("E","8"); 
-                DATA = DATA.replace("a","3");
+                DATA = DATA.replace("a","3"); 
                 break
 #            print(DATE_INFO)
             try:

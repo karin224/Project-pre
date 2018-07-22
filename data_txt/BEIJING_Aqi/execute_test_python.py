@@ -1,7 +1,7 @@
 import sys
 import os
 
-INfile = "Aqi_Beijing_Holi.txt"
+INfile = "C:/Users/manggny/PycharmProjects/Project-pre/data_txt/BEIJING_Aqi/carbon_copied_data/missing_deleted_Aqi_Beijing_MERGE_Aqi_Beijing_Changed_300187.txt"
 BIN_Num = 100   # 1D histogram bins
 N_sigma = 4    ## Skiming of txt outof specific sigma region
 
@@ -9,18 +9,24 @@ os.system("rm -rf python_2D_scatter")
 os.system("rm -rf python_plots")
 os.system("rm -rf python_hist_texts")
 os.system("rm -rf python_Months_txt")
+os.system("rm -rf python_Months_txt")
 
 sys.path.append("../../func")
 from d1_remake_txt import MakeTXT
 from txt_cut_apply import cut_apply
 from d0_Nsigma_skiming import N_sigma_skimming
 from d0_Month_devide import Month_divide
+from daily_ej import Daily_data
 INFile = MakeTXT(INfile)
 Infile_1 = cut_apply(INFile)
 Infile = N_sigma_skimming(Infile_1, N_sigma)
 MonthFiles = Month_divide(Infile)
+for i in range(len(MonthFiles)):
+    Daily_data(MonthFiles[i])
 os.system("mkdir python_Months_txt")
 os.system("mv *_M20*.txt python_Months_txt")
+os.system("mkdir python_Months_plots")
+os.system("mv *_month_plot.pdf python_Months_plots")
 
 sys.path.append("../../func")
 from RAW_to_HIST_txt import Converting

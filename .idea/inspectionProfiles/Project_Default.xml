@@ -1,0 +1,12 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="data_txt.BEIJING_Aqi.python_code.man_pyscat.d0_makelist_column" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
